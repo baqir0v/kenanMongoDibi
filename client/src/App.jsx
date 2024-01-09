@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import "./App.css"
+import {Route, Routes} from "react-router-dom"
+import Homepage from './components/Home'
+import AddPage from './components/AddPage'
+import Navbar from './components/Navbar'
+import DetailPage from './components/DetailPage'
 
-const Homepage = () => {
-  const [data,setData] = useState([])
-
-  useEffect(() => {
-    const fetchData = async ()=>{
-      const res = await fetch("http://localhost:5000/api/product")
-      const jsonData = await res.json()
-      setData(jsonData)
-    }
-    fetchData()
-  },[]);
+const App = () => {
   return (
     <div>
-      {data && data.map((item)=>(
-        <ul key={item._id}>
-          <img style={{width:"100px"}} src={item.image} alt="" />
-          <li>{item.title}</li>
-          <li>${item.price}</li>
-        </ul>
-      ))}
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<Homepage/>}/>
+        <Route path='/add' element={<AddPage/>}/>
+        <Route path='/:id' element={<DetailPage/>}/>
+      </Routes>
     </div>
   )
 }
 
-export default Homepage
+export default App

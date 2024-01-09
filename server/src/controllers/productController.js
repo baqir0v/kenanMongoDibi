@@ -32,5 +32,14 @@ const productActions = {
             res.status(500).json({ message: error })
         }
     }
+    ,deleteProductByID:async (req,res)=>{
+        try {
+            const {id,title} = req.params
+            const deleteProduct = await productModel.findByIdAndDelete(id)
+            res.send(`${deleteProduct.title} deleted`)
+        } catch (error) {
+            res.status(500).json({ message: error })
+        }
+    }
 }
 export default productActions
